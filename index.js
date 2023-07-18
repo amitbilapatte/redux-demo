@@ -1,6 +1,7 @@
 const redux = require("redux");
 const createStore = redux.createStore;
-console.log(" index.js madhe ahe");
+const combineReducers = redux.combineReducers;
+
 const BUY_CAKE = "BUY_CAKE";
 const BUY_ICECREAM = "BUY_ICECREAM";
 
@@ -20,17 +21,46 @@ function buyIceCream() {
 //REDUCER accepts "(proviousState, action)" and it returns  "newState"
 // (proviousState, action) => newState
 
-const initialState = {
-  noOfCakes: 4,
+// const initialState = {
+//   noOfCakes: 4,
+//   noOfIcecreams: 5,
+// };
+const initialCakeState = {
+  noOfCakes: 40,
+};
+const initialIcecreamState = {
   noOfIcecreams: 5,
 };
-const reducer = (state = initialState, action) => {
+// const reducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case BUY_CAKE:
+//       return {
+//         ...state,
+//         noOfCakes: state.noOfCakes - 1 >= 0 ? state.noOfCakes - 1 : "Out Of Stock",
+//       };
+//     case BUY_ICECREAM:
+//       return {
+//         ...state,
+//         noOfIcecreams: state.noOfIcecreams - 1 >= 0 ? state.noOfIcecreams - 1 : "Out Of Stock",
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
+const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     case BUY_CAKE:
       return {
         ...state,
         noOfCakes: state.noOfCakes - 1 >= 0 ? state.noOfCakes - 1 : "Out Of Stock",
       };
+    default:
+      return state;
+  }
+};
+const icecreamReducer = (state = initialIcecreamState, action) => {
+  switch (action.type) {
     case BUY_ICECREAM:
       return {
         ...state,
@@ -41,7 +71,12 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  icecream: icecreamReducer,
+});
+
+const store = createStore(rootReducer);
 console.log("initial states", store.getState());
 const unsubscribe = store.subscribe(() => console.log("Updated state", store.getState()));
 store.dispatch(buyCake());
