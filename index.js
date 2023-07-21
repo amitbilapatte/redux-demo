@@ -23,35 +23,12 @@ function buyIceCream() {
   };
 }
 
-//REDUCER accepts "(proviousState, action)" and it returns  "newState"
-// (proviousState, action) => newState
-
-// const initialState = {
-//   noOfCakes: 4,
-//   noOfIcecreams: 5,
-// };
 const initialCakeState = {
   noOfCakes: 4,
 };
 const initialIcecreamState = {
   noOfIcecreams: 5,
 };
-// const reducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case BUY_CAKE:
-//       return {
-//         ...state,
-//         noOfCakes: state.noOfCakes - 1 >= 0 ? state.noOfCakes - 1 : "Out Of Stock",
-//       };
-//     case BUY_ICECREAM:
-//       return {
-//         ...state,
-//         noOfIcecreams: state.noOfIcecreams - 1 >= 0 ? state.noOfIcecreams - 1 : "Out Of Stock",
-//       };
-//     default:
-//       return state;
-//   }
-// };
 
 const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
